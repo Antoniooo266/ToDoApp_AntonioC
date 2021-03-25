@@ -1,26 +1,23 @@
 package com.company;
 
+import com.company.clases.BD;
+import com.company.clases.Tarea;
+
 import java.io.*;
-import java.util.Date;
-import java.util.Hashtable;
 import java.util.Scanner;
 
-
-
 public class Main {
-
-
     public static void main(String[] args) throws IOException {
-        Hashtable<Tarea, Boolean> TareaP = new Hashtable<Tarea, Boolean>();
-        Hashtable<Tarea, Boolean> TareaC = new Hashtable<Tarea, Boolean>();
 
         try {
             Scanner sc = new Scanner(System.in);
             boolean salir = false;
+            Tarea tarea = new Tarea(null,null,false);
+            File Reader = new File("src\\com\\company\\agenda");
+            BD.CreacionTabla();
             while (!salir) {
-                FileWriter file = new FileWriter("src\\Tareas\\agendas",true);
+                FileWriter file = new FileWriter("src\\com\\company\\agenda",true);
                 PrintWriter pw = new PrintWriter(file);
-
                 System.out.println("AGENDA 2021");
                 System.out.println("1-Introducir nueva Tarea");
                 System.out.println("2-Revisar Tareas");
@@ -30,34 +27,13 @@ public class Main {
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("Introduzca nueva tarea: ");
-                        String titulo = sc.next();
-                        Date fecha = new Date();
-                        Tarea tarea = new Tarea(null, fecha, false);
-                        tarea.setNombreTarea(titulo);
-                        pw.println("TAREA PENDIENTE\n###############");
-                        pw.println(tarea);
-                        TareaP.put(tarea, false);
-                        break;
+                        Tarea.CrearTarea(tarea);
+                        System.out.println(tarea);
+                       break;
                     case 2:
-                        File Reader = new File("src\\Tareas\\agenda");
-                        Scanner MyReader = new Scanner(Reader);
-                        while (MyReader.hasNextLine()) {
-                            String contain = MyReader.nextLine();
-                            System.out.println(contain);
-                        }
                         break;
                     case 3:
-                        System.out.println("Escriba la tarea que desea completar: ");
-                        String tituloN = sc.next();
-                        Date fechaN = new Date();
-                        Tarea TareaN = new Tarea(tituloN, fechaN, true);
-                        TareaP.get(TareaN);
-                        TareaP.remove(TareaN);
-                        pw.println("\n");
-                        pw.println("TAREA COMPLETA\n##############");
-                        pw.println(TareaN);
-                        TareaC.put(TareaN, true);
+                        Tarea.CompletarTarea(tarea);
                         break;
                     case 4:
                         salir = true;
@@ -69,7 +45,8 @@ public class Main {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("Problemas");
+            System.out.println("Error con el codigo. Revisa el codigo");
+            e.printStackTrace();
         }
 
     }
