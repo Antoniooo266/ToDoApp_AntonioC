@@ -1,23 +1,22 @@
 package com.company;
 
-import com.company.clases.BD;
-import com.company.clases.Tarea;
+import com.company.clases.clases.clases.BD;
+import com.company.clases.clases.clases.Tarea;
 
-import java.io.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static Connection conn = BD.ConexionBD();
 
+    public static void main(String[] args) {
         try {
             Scanner sc = new Scanner(System.in);
             boolean salir = false;
-            Tarea tarea = new Tarea(null,null,false);
-            File Reader = new File("src\\com\\company\\agenda");
-            BD.CreacionTabla();
+            Tarea tarea = new Tarea(0,null,null, null);
+
             while (!salir) {
-                FileWriter file = new FileWriter("src\\com\\company\\agenda",true);
-                PrintWriter pw = new PrintWriter(file);
                 System.out.println("AGENDA 2021");
                 System.out.println("1-Introducir nueva Tarea");
                 System.out.println("2-Revisar Tareas");
@@ -28,12 +27,13 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         Tarea.CrearTarea(tarea);
-                        System.out.println(tarea);
+                        Tarea.AñadirTareaBD(tarea);
                        break;
                     case 2:
+                        Tarea.VisualizarTareas(tarea);
                         break;
                     case 3:
-                        Tarea.CompletarTarea(tarea);
+                        Tarea.CompletarTarea();
                         break;
                     case 4:
                         salir = true;
@@ -41,10 +41,9 @@ public class Main {
                     default:
                         break;
                 }
-                pw.close();
             }
 
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             System.out.println("Error con el codigo. Revisa el codigo");
             e.printStackTrace();
         }
