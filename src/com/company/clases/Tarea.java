@@ -1,4 +1,4 @@
-package com.company.clases.clases.clases;
+package com.company.clases;
 
 import com.company.Main;
 

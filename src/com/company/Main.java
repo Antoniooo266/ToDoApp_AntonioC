@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.clases.clases.clases.BD;
-import com.company.clases.clases.clases.Tarea;
+import com.company.clases.BD;
+import com.company.clases.Tarea;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package com.company.clases.clases.clases;
+package com.company.clases;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
